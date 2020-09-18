@@ -1,0 +1,32 @@
+{
+  "name": "terbilang",
+  "version": "1.0.0",
+  "description": "Mengkonversi angka numerik menjadi teks terbilang. 12345 -> \"dua belas ribu tiga ratus empat puluh lima\". Support hingga 999,999,999,999.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "mocha --reporter spec --require ts-node/register 'src/**/*.spec.ts'",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rimara14/terbilang.git"
+  },
+  "keywords": [
+    "terbilang"
+  ],
+  "author": "rimara14",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rimara14/terbilang/issues"
+  },
+  "homepage": "https://github.com/rimara14/terbilang#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  }
+}
