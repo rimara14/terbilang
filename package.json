@@ -7,7 +7,6 @@
   "scripts": {
     "test": "mocha --reporter spec --require ts-node/register 'src/**/*.spec.ts'",
     "coverage": "nyc npm run test",
-    "cov-test": "nyc report --reporter=\"json > coverage/coverage.json\"",
     "build": "tsc"
   },
   "repository": {
