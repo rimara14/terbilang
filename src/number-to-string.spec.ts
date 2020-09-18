@@ -78,12 +78,30 @@ describe('Terbilang Library', () => {
     expect(terbilang(999999999)).to.equal('sembilan ratus sembilan puluh sembilan juta sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 1000000000' , () => {
+  it('should be able to convert number >= 1000000000 and < 1000000000000' , () => {
     expect(terbilang(1000000000)).to.equal('satu milyar');
     expect(terbilang(1001000000)).to.equal('satu milyar satu juta');
     expect(terbilang(587363123376)).to.equal('lima ratus delapan puluh tujuh milyar tiga ratus enam puluh tiga juta seratus dua puluh tiga ribu tiga ratus tujuh puluh enam');
     expect(terbilang(789632362376)).to.equal('tujuh ratus delapan puluh sembilan milyar enam ratus tiga puluh dua juta tiga ratus enam puluh dua ribu tiga ratus tujuh puluh enam');
     expect(terbilang(999999999999)).to.equal('sembilan ratus sembilan puluh sembilan milyar sembilan ratus sembilan puluh sembilan juta sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
+  });
+
+  it('should return empty string if number given is > 1000000000000' , () => {
+    expect(terbilang(1000000000000)).to.equal('');
+    expect(terbilang(1231231232133)).to.equal('');
+  });
+
+  it('should be able to convert number with type string' , () => {
+    expect(terbilang('1000000000')).to.equal('satu milyar');
+    expect(terbilang('1001000000')).to.equal('satu milyar satu juta');
+    expect(terbilang('587363123376')).to.equal('lima ratus delapan puluh tujuh milyar tiga ratus enam puluh tiga juta seratus dua puluh tiga ribu tiga ratus tujuh puluh enam');
+    expect(terbilang('789632362376')).to.equal('tujuh ratus delapan puluh sembilan milyar enam ratus tiga puluh dua juta tiga ratus enam puluh dua ribu tiga ratus tujuh puluh enam');
+    expect(terbilang('999999999999')).to.equal('sembilan ratus sembilan puluh sembilan milyar sembilan ratus sembilan puluh sembilan juta sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
+  });
+
+  it('should throw error if given value neither string nor number' , () => {
+    const notNumber: any = new Date();
+    expect(() => terbilang(notNumber)).to.throw('value must be either string or number');
   });
 
 });
