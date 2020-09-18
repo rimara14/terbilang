@@ -9,7 +9,7 @@ Support input string ataupun number. Support hingga angka 999,999,999,999
 
 ## Installation
 ```bash
-npm install terbilang --save
+npm install angka-terbilang --save
 ```
 
 ## Usage

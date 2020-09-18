@@ -1,5 +1,5 @@
 {
-  "name": "terbilang",
+  "name": "angka-terbilang",
   "version": "1.0.0",
   "description": "Mengkonversi angka numerik menjadi teks terbilang. 12345 -> \"dua belas ribu tiga ratus empat puluh lima\". Support hingga 999,999,999,999.",
   "main": "dist/index.js",
