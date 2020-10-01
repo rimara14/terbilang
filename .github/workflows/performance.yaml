@@ -1,12 +1,10 @@
 name: pull
 
-on:
-  pull_request:
-    branches: [master]
+on: ['workflow_dispatch']
 
 jobs:
-  test:
-    name: test
+  performance:
+    name: performance
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,4 +13,4 @@ jobs:
           node-version: 12.x
           registry-url: 'https://registry.npmjs.org'
       - run: npm i
-      - run: npm run coverage
+      - run: npm run performance
