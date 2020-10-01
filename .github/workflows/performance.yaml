@@ -1,4 +1,4 @@
-name: pull
+name: performance
 
 on: ['workflow_dispatch']
 
