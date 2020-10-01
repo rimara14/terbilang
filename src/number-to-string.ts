@@ -1,4 +1,4 @@
-export default function main(value: number | string): string {
+export default function main(value: number | string | bigint): string {
   return numberToString(value);
 }
 

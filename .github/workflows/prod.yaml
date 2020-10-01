@@ -5,8 +5,8 @@ on:
     branches: [master]
 
 jobs:
-  build:
-    name: build
+  test:
+    name: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +19,29 @@ jobs:
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+  performance:
+    name: performance
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm i
+      - run: npm run performance
+  build:
+    name: build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm i
       - run: npm run build
         env:
           NODE_ENV: production
