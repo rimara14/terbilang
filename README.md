@@ -1,7 +1,7 @@
 [![codecov](https://codecov.io/gh/rimara14/terbilang/branch/master/graph/badge.svg?token=k2udo33EUM)](https://codecov.io/gh/rimara14/terbilang)
 
 ## Introduction
-***Terbilang** is a library to convert decimal number into spoken word. For example, `1024` as `Seribu Dua Puluh Empat`. Support up to 999,999,999*
+***Terbilang** is a library to convert decimal number into spoken word. For example, `1024` as `Seribu Dua Puluh Empat`. Support up to 999,999,999,999*
 
 **Terbilang** merupakan *library* untuk mengubah angka numerik menjadi bentuk terbilang. Sebagai contoh, `1024` menjadi `Seribu Dua Puluh Empat`. Mendukung hingga angka 999,999,999,999
 
