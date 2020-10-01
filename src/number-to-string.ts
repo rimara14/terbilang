@@ -1,4 +1,5 @@
 export default function main(value: number | string): string {
+  if (value === 0 || value === '0') return 'nol';
   return numberToString(value);
 }
 
