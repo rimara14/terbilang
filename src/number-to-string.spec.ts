@@ -6,7 +6,7 @@ import * as chai from 'chai';
 const expect = chai.expect;
 describe('Terbilang Library', () => {
 
-  it('should be able to convert number < 12' , () => {
+  it('should be able to convert number < 12', () => {
     expect(terbilang(1)).to.equal('satu');
     expect(terbilang(2)).to.equal('dua');
     expect(terbilang(3)).to.equal('tiga');
@@ -20,27 +20,27 @@ describe('Terbilang Library', () => {
     expect(terbilang(11)).to.equal('sebelas');
   });
 
-  it('should be able to convert number >= 12 and < 20' , () => {
+  it('should be able to convert number >= 12 and < 20', () => {
     expect(terbilang(12)).to.equal('dua belas');
     expect(terbilang(16)).to.equal('enam belas');
     expect(terbilang(19)).to.equal('sembilan belas');
   });
 
-  it('should be able to convert number >= 20 and < 100' , () => {
+  it('should be able to convert number >= 20 and < 100', () => {
     expect(terbilang(20)).to.equal('dua puluh');
     expect(terbilang(21)).to.equal('dua puluh satu');
     expect(terbilang(45)).to.equal('empat puluh lima');
     expect(terbilang(99)).to.equal('sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 100 and < 200' , () => {
+  it('should be able to convert number >= 100 and < 200', () => {
     expect(terbilang(100)).to.equal('seratus');
     expect(terbilang(101)).to.equal('seratus satu');
     expect(terbilang(153)).to.equal('seratus lima puluh tiga');
     expect(terbilang(199)).to.equal('seratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 200 and < 1000' , () => {
+  it('should be able to convert number >= 200 and < 1000', () => {
     expect(terbilang(200)).to.equal('dua ratus');
     expect(terbilang(201)).to.equal('dua ratus satu');
     expect(terbilang(212)).to.equal('dua ratus dua belas');
@@ -48,7 +48,7 @@ describe('Terbilang Library', () => {
     expect(terbilang(999)).to.equal('sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 1000 and < 2000' , () => {
+  it('should be able to convert number >= 1000 and < 2000', () => {
     expect(terbilang(1000)).to.equal('seribu');
     expect(terbilang(1001)).to.equal('seribu satu');
     expect(terbilang(1102)).to.equal('seribu seratus dua');
@@ -56,21 +56,21 @@ describe('Terbilang Library', () => {
     expect(terbilang(1999)).to.equal('seribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 2000 and < 10000' , () => {
+  it('should be able to convert number >= 2000 and < 10000', () => {
     expect(terbilang(2000)).to.equal('dua ribu');
     expect(terbilang(2001)).to.equal('dua ribu satu');
     expect(terbilang(5379)).to.equal('lima ribu tiga ratus tujuh puluh sembilan');
     expect(terbilang(9999)).to.equal('sembilan ribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 10000 and < 1000000' , () => {
+  it('should be able to convert number >= 10000 and < 1000000', () => {
     expect(terbilang(10000)).to.equal('sepuluh ribu');
     expect(terbilang(20001)).to.equal('dua puluh ribu satu');
     expect(terbilang(500379)).to.equal('lima ratus ribu tiga ratus tujuh puluh sembilan');
     expect(terbilang(999999)).to.equal('sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 1000000 and < 1000000000' , () => {
+  it('should be able to convert number >= 1000000 and < 1000000000', () => {
     expect(terbilang(1000000)).to.equal('satu juta');
     expect(terbilang(1000100)).to.equal('satu juta seratus');
     expect(terbilang(12323344)).to.equal('dua belas juta tiga ratus dua puluh tiga ribu tiga ratus empat puluh empat');
@@ -78,7 +78,7 @@ describe('Terbilang Library', () => {
     expect(terbilang(999999999)).to.equal('sembilan ratus sembilan puluh sembilan juta sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should be able to convert number >= 1000000000 and < 1000000000000' , () => {
+  it('should be able to convert number >= 1000000000 and < 1000000000000', () => {
     expect(terbilang(1000000000)).to.equal('satu milyar');
     expect(terbilang(1001000000)).to.equal('satu milyar satu juta');
     expect(terbilang(587363123376)).to.equal('lima ratus delapan puluh tujuh milyar tiga ratus enam puluh tiga juta seratus dua puluh tiga ribu tiga ratus tujuh puluh enam');
@@ -86,12 +86,7 @@ describe('Terbilang Library', () => {
     expect(terbilang(999999999999)).to.equal('sembilan ratus sembilan puluh sembilan milyar sembilan ratus sembilan puluh sembilan juta sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should return empty string if number given is > 1000000000000' , () => {
-    expect(terbilang(1000000000000)).to.equal('');
-    expect(terbilang(1231231232133)).to.equal('');
-  });
-
-  it('should be able to convert number with type string' , () => {
+  it('should be able to convert number with type string', () => {
     expect(terbilang('1000000000')).to.equal('satu milyar');
     expect(terbilang('1001000000')).to.equal('satu milyar satu juta');
     expect(terbilang('587363123376')).to.equal('lima ratus delapan puluh tujuh milyar tiga ratus enam puluh tiga juta seratus dua puluh tiga ribu tiga ratus tujuh puluh enam');
@@ -99,9 +94,9 @@ describe('Terbilang Library', () => {
     expect(terbilang('999999999999')).to.equal('sembilan ratus sembilan puluh sembilan milyar sembilan ratus sembilan puluh sembilan juta sembilan ratus sembilan puluh sembilan ribu sembilan ratus sembilan puluh sembilan');
   });
 
-  it('should throw error if given value neither string nor number' , () => {
+  it('should throw error if given value neither string nor number', () => {
     const notNumber: any = new Date();
-    expect(() => terbilang(notNumber)).to.throw('value must be either string or number');
+    expect(() => terbilang(notNumber)).to.throw('value must be either string, number, or bigint');
   });
 
 });
