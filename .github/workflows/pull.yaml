@@ -1,7 +1,7 @@
-name: prod
+name: pull
 
 on:
-  push:
+  pull_request:
     branches: [master]
 
 jobs:
@@ -16,11 +16,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm i
       - run: npm run coverage
-      - uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-  build:
-    name: build
+  performance:
+    name: performance
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -30,9 +27,4 @@ jobs:
           node-version: 12.x
           registry-url: 'https://registry.npmjs.org'
       - run: npm i
-      - run: npm run build
-        env:
-          NODE_ENV: production
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm run performance

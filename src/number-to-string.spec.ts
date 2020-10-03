@@ -6,7 +6,8 @@ import * as chai from 'chai';
 const expect = chai.expect;
 describe('Terbilang Library', () => {
 
-  it('should be able to convert number < 12', () => {
+  it('should be able to convert number < 12' , () => {
+    expect(terbilang(0)).to.equal('nol');
     expect(terbilang(1)).to.equal('satu');
     expect(terbilang(2)).to.equal('dua');
     expect(terbilang(3)).to.equal('tiga');
