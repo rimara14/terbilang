@@ -1,122 +1,200 @@
-export default function main(value: number | string): string {
-  if (value === 0 || value === '0') return 'nol';
-  return numberToString(value);
+export default function main(value: number | string | bigint, options?: IOptions): string {
+  return numberToString(value, {...options});
 }
 
-function numberToString(value: number | string): string {
-  if (!value) {
-    return '';
-  }
+const en = {
+  '': '',
+  'satu': 'one', // 1
+  'dua': 'two', // 2
+  'tiga': 'three', // 3
+  'empat': 'four', // 4
+  'lima': 'five', // 5
+  'enam': 'six', // 6
+  'tujuh': 'seven', // 7
+  'delapan': 'eight', // 8
+  'sembilan': 'nine', // 9
+  'sepuluh': 'ten', // 10
+  'sebelas': 'eleven', // 11
+  'dua belas': 'twelve', // 12
+  'tiga belas': 'thirteen', // 13
+  'empat belas': 'fourteen', // 14
+  'lima belas': 'fifteen', // 15
+  'enam belas': 'sixteen', // 16
+  'tujuh belas': 'seventeen', // 17
+  'delapan belas': 'eighteen', // 18
+  'sembilan belas': 'nineteen', // 19
+  'dua puluh': 'twenty', // 20
+  'tiga puluh': 'thirty', // 30
+  'empat puluh': 'forty', // 40
+  'lima puluh': 'fifty', // 50
+  'enam puluh': 'sixty', // 60
+  'tujuh puluh': 'seventy', // 70
+  'delapan puluh': 'eighty', // 80
+  'sembilan puluh': 'ninety', // 90
+  'ribu': 'thousand', // 10 ^ 3
+  'juta': 'million', // 10 ^ 6
+  'milyar': 'billion', // 10 ^ 9
+  'triliun': 'trillion', // 10 ^ 12
+};
 
-  let num: number;
-  let numStr: string;
-  if (typeof value === 'number') {
-    num = value;
-    numStr = value.toString();
-  } else if (typeof value === 'string') {
-    num = parseInt(value, 10);
-    numStr = value;
+const ONES = [
+  '',
+  'satu', // 1
+  'dua', // 2
+  'tiga', // 3
+  'empat', // 4
+  'lima', // 5
+  'enam', // 6
+  'tujuh', // 7
+  'delapan', // 8
+  'sembilan', // 9
+  'sepuluh', // 10
+  'sebelas', // 11
+  'dua belas', // 12
+  'tiga belas', // 13
+  'empat belas', // 14
+  'lima belas', // 15
+  'enam belas', // 16
+  'tujuh belas', // 17
+  'delapan belas', // 18
+  'sembilan belas', // 19
+];
+
+// The capacity can be increased by adding the names of large powers of 10 here.
+const POWER = [
+  '',
+  'ribu', // 10 ^ 3
+  'juta', // 10 ^ 6
+  'milyar', // 10 ^ 9
+  'triliun', // 10 ^ 12
+];
+
+function divmod(n: bigint, d: bigint) {
+  return [n / d, n % d];
+}
+
+/**
+ * Returns an array representing the correct string representation of a number
+ * less than 100.
+ *
+ * @param n The number less than 100 to represent.
+ * @param lang The specific language to use
+ */
+function twoDigits(n: bigint, lang: string) {
+  if (n === BigInt(0)) {
+    return [];
+  }
+  if (n < BigInt(20)) {
+    // we have already calculated the string
+    return [translate(ONES[Number(n)], lang)];
+  }
+  const [tens, ones] = divmod(n, BigInt(10));
+  // tens will be at least 2 since 20 ≤ n.
+  let result: any[];
+  if (lang === 'en') {
+    result = [translate(ONES[Number(tens)] + ' puluh', lang)]
   } else {
-    throw new Error('value must be either string or number');
+    result = [ONES[Number(tens)], 'puluh'];
   }
 
-  if (num < 12) {
-    return convertNumber(numStr);
+  if (ones !== BigInt(0)) {
+    result.push(translate(ONES[Number(ones)], lang));
   }
-
-  const nums = [];
-  for (const n of numStr) {
-    nums.push(convertNumber(n));
-  }
-
-  if (num < 20) {
-    return nums[1] + ' belas';
-  }
-
-  if (num < 100) {
-    return (nums[0] + ' puluh ' + nums[1]).trim();
-  }
-
-  if (num < 200) {
-    return ('seratus ' + numberToString(parseInt(numStr.substring(1), 10))).trim();
-  }
-
-  if (num < 1000) {
-    return (
-      nums[0] + ' ratus ' + numberToString(parseInt(numStr.substring(1), 10))
-    ).trim();
-  }
-
-  if (num < 2000) {
-    return ('seribu ' + numberToString(parseInt(numStr.substring(1), 10))).trim();
-  }
-
-  if (num < 10000) {
-    return (
-      nums[0] + ' ribu ' + numberToString(parseInt(numStr.substring(1), 10))
-    ).trim();
-  }
-
-  if (num < 1000000) {
-    const perThousands = numStr.match(/\d{1,3}(?=(\d{3})*$)/g);
-    return (
-      numberToString(parseInt(perThousands[0], 10)) +
-      ' ribu ' +
-      numberToString(parseInt(perThousands[1], 10))
-    ).trim();
-  }
-
-  if (num < 1000000000) {
-    const perThousands = numStr.match(/\d{1,3}(?=(\d{3})*$)/g);
-    return (
-      numberToString(parseInt(perThousands[0], 10)) +
-      ' juta ' +
-      numberToString(parseInt(joinRest(perThousands), 10))
-    ).trim();
-  }
-
-  if (num < 1000000000000) {
-    const perThousands = numStr.match(/\d{1,3}(?=(\d{3})*$)/g);
-    return (
-      numberToString(parseInt(perThousands[0], 10)) +
-      ' milyar ' +
-      numberToString(parseInt(joinRest(perThousands), 10))
-    ).trim();
-  }
-
-  return '';
+  return result
 }
 
-function joinRest(arr: string[]): string {
-  arr.splice(0, 1);
-  return arr.join('');
+/**
+ * Returns an array representing the correct string representation of a number
+ * less than 1000.
+ *
+ * @param n The number less than 1000 to represent.
+ * @param lang The specific language to return words.
+ */
+function threeDigits(n: bigint, lang: string) {
+  const [hundred, tensAndOnes] = divmod(n, BigInt(100));
+
+  const smaller = twoDigits(tensAndOnes, lang);
+
+  if (hundred === BigInt(0)) {
+    return smaller;
+  }
+
+  if (lang === 'en') {
+    return [translate(ONES[Number(hundred)], lang), 'hundred']
+        .concat(smaller);
+  } else {
+    return [hundred === BigInt(1) ? 'seratus' : `${translate(ONES[Number(hundred)], lang)} ratus`]
+        .concat(smaller);
+  }
 }
 
-function convertNumber(value: string): string {
-  switch (value) {
-    case '1':
-      return 'satu';
-    case '2':
-      return 'dua';
-    case '3':
-      return 'tiga';
-    case '4':
-      return 'empat';
-    case '5':
-      return 'lima';
-    case '6':
-      return 'enam';
-    case '7':
-      return 'tujuh';
-    case '8':
-      return 'delapan';
-    case '9':
-      return 'sembilan';
-    case '10':
-      return 'sepuluh';
-    case '11':
-      return 'sebelas';
-    default:
+/**
+ * Converts a number into a human readable string representation of the number.
+ * That is, given a series of digits; in the form of a string, number or bigint,
+ * will return a string that represents that number in words.
+ *
+ * @example
+ * ```js
+ * // Value passed as a string.
+ * numberToString('1001'); // 'seribu satu'
+ *
+ * // Value passed as a number.
+ * numberToString(1212); // 'seribu dua ratus dua belas'
+ *
+ * // Value passed as a bigint.
+ * numberToString(BigInt(10011)); // 'sepuluh ribu sebelas'
+ * ```
+ *
+ * @param value The number to convert into words.
+ * @param language The specific language to return words.
+ */
+function numberToString(value: number | string | bigint, {language = 'id'}: IOptions): string {
+  if (!(new Set(['bigint', 'string', 'number']).has(typeof value))) {
+    throw new Error('value must be either string, number, or bigint');
+  }
+
+  let n = BigInt(value);
+  let power = 0;
+  const result: Array<string> = [];
+
+  // We iterate through the groups of three digits from the least significant to
+  // most significant digits.
+  while (n !== BigInt(0)) {
+    if (power >= POWER.length) {
+      console.error('Numbers this big are not implemented.');
       return '';
+    }
+    const [remaining, three] = divmod(n, BigInt(1000));
+    n = remaining;
+
+    // Check for special case when there is only one thousand.
+    if (three === BigInt(1) && power === 1) {
+      if (language === 'en') {
+        result.push('one thousand');
+      } else {
+        result.push('seribu');
+      }
+    } else if (three !== BigInt(0)) {
+      if (power > 0) {
+        result.push(translate(POWER[power], language));
+      }
+      result.push(threeDigits(three, language).join(' '));
+    }
+    power += 1;
   }
+
+  return result.reverse().join(' ');
+}
+
+function translate(key: string, lang: string): string {
+  switch (lang) {
+    case 'en':
+      return en[key];
+    default:
+      return key;
+  }
+}
+
+interface IOptions {
+  language?: 'id' | 'en';
 }
