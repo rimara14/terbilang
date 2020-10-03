@@ -1,8 +1,3 @@
-export default function main(value: number | string): string {
-  if (value === 0 || value === '0') return 'nol';
-  return numberToString(value);
-}
-
 const ONES = [
   '',
   'satu', // 1
@@ -100,12 +95,19 @@ function threeDigits(n: bigint) {
  * 
  * @param value The number to convert into words.
  */
-function numberToString(value: number | string | bigint): string {
+export default function numberToString(
+  value: number | string | bigint
+): string {
   if (!(new Set(['bigint', 'string', 'number']).has(typeof value))) {
     throw new Error('value must be either string, number, or bigint');
   }
 
   let n = BigInt(value);
+
+  if (n == BigInt(0)) {
+    return 'nol'
+  }
+
   let power = 0;
   const result: Array<string> = [];
 
